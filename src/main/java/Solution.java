@@ -1,13 +1,6 @@
-import org.apache.spark.sql.sources.In;
-import org.codehaus.jackson.map.util.LinkedNode;
-import org.openjdk.jol.info.ClassLayout;
-import sun.reflect.generics.tree.Tree;
 
-import javax.crypto.spec.PSource;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
+
 
 public class Solution {
     int maxprofit=Integer.MIN_VALUE;
@@ -26,14 +19,17 @@ public class Solution {
         int[] p={3,9,20,15,7};
         int[] i={9,3,15,20,7};
         int[][] classes={{0,1},{1,3},{3,1},{3,2}};
-        boolean ii=solution.canFinish(4,classes);
         TreeNode t1=new TreeNode(2);
-        TreeNode t2=new TreeNode(-1);
-        TreeNode t3=new TreeNode(3);
-        TreeNode t4=new TreeNode(4);
-        TreeNode t5=new TreeNode(5);
-        TreeNode t6=new TreeNode(6);
-        t1.left=t2;
+        TreeNode t2=t1.left;
+
+        Trie trie=new Trie();
+        trie.insert("app");
+        trie.insert("apple");
+        System.out.println(trie.search("app"));
+        System.out.println(trie.search("tree"));
+        System.out.println(trie.search("app"));
+        System.out.println(trie.startsWith("tre"));
+
         System.out.println("abce".substring(0,3));
         System.out.println(123);
     }
@@ -1354,5 +1350,24 @@ public class Solution {
             }
         }
         return res;
+    }
+
+    public int findKthLargest(int[] nums, int k) {
+        ArrayList<Integer> list=new ArrayList(k);
+        for (int i:nums){
+            if(list.size()<k) {
+                list.add(i);
+                if(list.size()==k)
+                    list.sort((a,b)->a-b);
+            }
+            else {
+                if(i>list.get(0)){
+                    list.remove(0);
+                    list.add(i);
+                    list.sort((a,b)->a-b);
+                }
+            }
+        }
+        return list.get(0);
     }
 }
